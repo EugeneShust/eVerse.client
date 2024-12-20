@@ -12,9 +12,9 @@ export function Navbar() {
                     </Link>
                 </div>
                 <div className="flex-none gap-4">
-                    <Link to="/">
+                    <Link to="/signup">
                         <div className="btn btn-ghost text-xl border-2 border-[#caced5]">
-                            Login
+                            SignUp
                         </div>
                     </Link>
                 </div>

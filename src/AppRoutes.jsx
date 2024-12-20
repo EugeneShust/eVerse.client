@@ -1,20 +1,20 @@
 // Contains all application routes.
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { MainLayout } from './layouts';
-import { LandingPage } from './pages';
+import { LandingPage, SignUpPage } from './pages';
 
 const router = createBrowserRouter([
     {
         path: '',
-        element: (
-                <MainLayout />
-        ),
+        element: <MainLayout />,
         children: [
             {
                 index: true,
-                element: (
-                        <LandingPage />
-                ),
+                element: <LandingPage />,
+            },
+            {
+                path: '/signup',
+                element: <SignUpPage />,
             },
         ],
     },
