@@ -1,2 +1,2 @@
-// Service Layer entry point for exporting all service functions.
-export { register, login } from './auth';
+export { register, signIn, refreshAccessToken } from './account';
+export { getProfile, updateProfile, getUserVerses } from './user';

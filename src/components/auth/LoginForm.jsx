@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const SignUpForm = ({ onSubmit }) => {
+export const LoginForm = ({ onSubmit }) => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -8,12 +8,11 @@ export const SignUpForm = ({ onSubmit }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         if (!formData.email || !formData.password) {
             throw new Error('Please fill in all fields');
         }
 
-        onSubmit(formData);
+        onSubmit({ email: formData.email, password: formData.password });
     };
 
     return (
@@ -42,7 +41,7 @@ export const SignUpForm = ({ onSubmit }) => {
                 <input
                     type="password"
                     placeholder="password"
-                    className="input input-bordered"
+                    classs="input input-bordered"
                     value={formData.password}
                     onChange={(e) =>
                         setFormData({
@@ -53,7 +52,7 @@ export const SignUpForm = ({ onSubmit }) => {
                 />
             </div>
             <div className="form-control mt-6">
-                <button className="btn btn-primary">Sign Up</button>
+                <button className="btn btn-primary">Login</button>
             </div>
         </form>
     );
