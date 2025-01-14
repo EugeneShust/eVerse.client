@@ -2,14 +2,16 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { MainLayout } from './layouts';
 import { LandingPage, SignUpPage, LoginPage, ProfilePage } from './pages';
-import { ProfileProvider } from './contexts'
+import { ProfileProvider, VerseProvider } from './contexts';
 
 const router = createBrowserRouter([
     {
         path: '',
         element: (
             <ProfileProvider>
-                <MainLayout />
+                <VerseProvider>
+                    <MainLayout />
+                </VerseProvider>
             </ProfileProvider>
         ),
         children: [
