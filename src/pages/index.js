@@ -9,4 +9,4 @@ export { VerseEditPage } from './VerseEditPage';
 export { VerseCreatePage } from './VerseCreatePage';
 
 export { PWAPage } from './PWAPage';
-export { ExplorePage } from './PWAPage';
+export { ExplorePage } from './ExplorePage';
