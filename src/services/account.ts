@@ -4,17 +4,13 @@ import {
     signInWithEmailAndPassword,
 } from './firebase';
 
-import {
-    BaseCredentials,
-    RegistrationRequest,
-    RegistrationResponse,
-} from '../types';
+import { BaseCredentials, RegistrationResponse } from '../types';
 
 import apiClient from '../api/apiClient';
 
 export const register = async (
     firebaseCredentials: BaseCredentials,
-    registrationRequest: RegistrationRequest,
+    registrationRequest,
 ) => {
     try {
         const userCredential = await createUserWithEmailAndPassword(
@@ -35,8 +31,8 @@ export const register = async (
             throw new Error('Failed to register user on server');
         }
 
-        const location = await authentication(response.data.userId);
-        
+        const location = await authentication("register", response.data.userId);
+
         return await handleAuthLocation(location);
     } catch (error) {
         console.error('Error during registration:', error);
@@ -57,8 +53,8 @@ export const signIn = async (firebaseCredentials: BaseCredentials) => {
 
         console.log('signIn.token:', token);
 
-        const location = await authentication();
-        
+        const location = await authentication("signIn");
+
         return await handleAuthLocation(location);
     } catch (error) {
         console.error('Error logging in:', error);
@@ -70,20 +66,37 @@ export const refreshAccessToken = async () => {
     try {
         localStorage.removeItem('accessToken');
 
-        await authentication();
+        await authentication("refreshAccessToken");
     } catch (error) {
         console.error('Error logging in:', error);
         throw new Error('signIn failed');
     }
 };
 
-const authentication = async (userId = "") => {
+export const updateFCMToken = async (token) => {
     try {
-        const response = await apiClient.post('/account/authentication', {userId : userId});
+        const response = await apiClient.post('/account/fcmToken', {
+            token: token,
+        });
+
+        return response;
+    } catch (error) {
+        console.error('Error logging in:', error);
+        throw new Error('signIn failed');
+    }
+};
+
+
+const authentication = async (method, userId = '') => {
+    try {
+        const response = await apiClient.post('/account/authentication', {
+            userId: userId,
+        });
 
         const { token, location } = response.data;
 
         localStorage.setItem('accessToken', token);
+        console.log(method);
         return location;
     } catch (error) {
         console.error('Error authentication:', error);

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getProfile } from '../services';
+import { getProfile, profileUpdate } from '../services';
 import { ProfileForm } from '../components';
-import { updateProfile } from '../services';
 
 export const ProfilePage = () => {
     const [profile, setProfile] = useState({});
@@ -34,7 +33,7 @@ export const ProfilePage = () => {
         try {
             console.log('data:', data);
 
-            const updatedData = await updateProfile(data);
+            const updatedData = await profileUpdate(data);
 
             console.log('updatedData:', updatedData);
 

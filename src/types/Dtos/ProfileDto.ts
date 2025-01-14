@@ -1,3 +1,5 @@
+import { FavoriteDto } from "./FavoriteDto";
+
 export interface ProfileDto {
     userId: string;
     avatar: string;
@@ -6,5 +8,5 @@ export interface ProfileDto {
     phone: string;
 
     verses: [];
-    favorires: [];
+    favorites: FavoriteDto[];
 }

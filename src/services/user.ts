@@ -3,10 +3,11 @@ import { UserVersesResponse } from '../types';
 import apiClient from '../api/apiClient';
 
 export async function getProfile() {
-    return await apiClient.post('/user/profile', {});
+    var response = await apiClient.post('/user/profile', {});
+    return response.data;
 }
 
-export async function updateProfile(profile) {
+export async function profileUpdate(profile) {
     return await apiClient.put('/user/profile', profile);
 }
 

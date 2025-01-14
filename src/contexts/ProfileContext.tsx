@@ -9,7 +9,9 @@ export interface ProfileContextValue {
     logout: () => void;
 }
 
-export const ProfileContext = createContext<ProfileContextValue | undefined>(undefined);
+export const ProfileContext = createContext<ProfileContextValue | undefined>(
+    undefined,
+);
 
 export const ProfileProvider = ({ children }) => {
     const [profile, setProfile] = useState<ProfileDto | null>(null);
@@ -26,11 +28,13 @@ export const ProfileProvider = ({ children }) => {
 
     const logout = () => {
         setProfile(null);
-        console.log('Logout successful.');
+        console.log('LOGOUT successful.');
     };
 
     return (
-        <ProfileContext.Provider value={{ profile, updateProfile, login, logout }}>
+        <ProfileContext.Provider
+            value={{ profile, updateProfile, login, logout }}
+        >
             {children}
         </ProfileContext.Provider>
     );

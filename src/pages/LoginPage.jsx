@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LoginForm } from '../components';
+import { LoginForm, ProfileForm } from '../components';
 import { signIn } from '../services';
 import { useProfile } from '../hooks';
 
@@ -12,6 +12,7 @@ export const LoginPage = () => {
     const handleLogin = async (data) => {
         setError('');
         try {
+            // TODO refactor required!!! add ProfileDto
             const userProfile = await signIn(data);
             login(userProfile);
 
