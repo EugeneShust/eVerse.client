@@ -1,4 +1,3 @@
-import { data } from 'autoprefixer';
 import { UserVersesResponse } from '../types';
 import apiClient from '../api/apiClient';
 
@@ -13,5 +12,15 @@ export async function profileUpdate(profile) {
 
 export async function getUserVerses(): Promise<UserVersesResponse> {
     var response = await apiClient.post<UserVersesResponse>('/user/verses', {});
+    return response.data;
+}
+
+export async function ToggleVerseFavorite(verseId) {
+    var response = await apiClient.post(`/user/favorite/${verseId}`, {});
+    return response.data;
+}
+
+export async function ToggleVerseEventFavorite(verseId, id) {
+    var response = await apiClient.post(`/user/favorite/${verseId}/${id}`, {});
     return response.data;
 }

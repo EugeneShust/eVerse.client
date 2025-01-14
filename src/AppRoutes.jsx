@@ -1,7 +1,15 @@
 // Contains all application routes.
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { MainLayout } from './layouts';
-import { LandingPage, SignUpPage, LoginPage, ProfilePage } from './pages';
+import {
+    LandingPage,
+    SignUpPage,
+    LoginPage,
+    ProfilePage,
+    VersesPage,
+    VerseCreatePage,
+    VerseEditPage,
+} from './pages';
 import { ProfileProvider, VerseProvider } from './contexts';
 
 const router = createBrowserRouter([
@@ -30,6 +38,18 @@ const router = createBrowserRouter([
             {
                 path: '/profile',
                 element: <ProfilePage />,
+            },
+            {
+                path: '/verses',
+                element: <VersesPage />,
+            },
+            {
+                path: '/verses/create',
+                element: <VerseCreatePage />,
+            },
+            {
+                path: '/verses/:id',
+                element: <VerseEditPage />,
             },
         ],
     },

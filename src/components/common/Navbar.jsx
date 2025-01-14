@@ -4,7 +4,6 @@ import { useProfile } from '../../hooks';
 
 export function Navbar() {
     const { profile } = useProfile();
-    console.log('Navbar.profile', profile);
 
     const location = useLocation();
     const getMenuItems = () => {
@@ -14,15 +13,15 @@ export function Navbar() {
                     { label: 'Home', anchor: 'home' },
                     { label: 'About', anchor: 'about' },
                     { label: 'Features', anchor: 'features' },
-                    { label: 'Verses', path: '/verses' },
-                    { label: 'My Verses', path: '/my-verses' },
+                    { label: 'Verses', path: '/app/explore' },
+                    { label: 'My Verses', path: '/verses' },
                 ];
             } else
                 return [
                     { label: 'Home', anchor: 'home' },
                     { label: 'About', anchor: 'about' },
                     { label: 'Features', anchor: 'features' },
-                    { label: 'Verses', path: '/verses' },
+                    { label: 'Verses', path: '/app/explore' },
                     { label: 'Login', path: '/login' },
                 ];
         } else {
@@ -39,7 +38,6 @@ export function Navbar() {
             <ul>
                 {menuItems.map((item, index) =>
                     item.anchor ? (
-                        // Якірне посилання
                         <li key={index}>
                             <ScrollLink
                                 to={item.anchor}
