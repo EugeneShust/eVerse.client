@@ -23,3 +23,4 @@ export { LocationItem } from './verse/items/LocationItem';
 export { EventItem } from './verse/items/EventItem';
 export { ListComponent } from './verse/ListComponent';
 
+export { AppPreview } from './app/AppPreview';

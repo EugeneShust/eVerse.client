@@ -13,5 +13,6 @@ export { EventDto } from './Dtos/Items/EventDto';
 export { CategoryDto } from './Dtos/Items/CategoryDto';
 export { PresenterDto } from './Dtos/Items/PresenterDto';
 export { LocationDto } from './Dtos/Items/LocationDto';
+export { AppPreviewDto } from './Dtos/AppPreviewDto';
 
 export * from './Props';

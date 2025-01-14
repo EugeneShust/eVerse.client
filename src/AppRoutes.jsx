@@ -9,7 +9,10 @@ import {
     VersesPage,
     VerseCreatePage,
     VerseEditPage,
+    PWAPage,
+    ExplorePage,
 } from './pages';
+
 import { ProfileProvider, VerseProvider } from './contexts';
 
 const router = createBrowserRouter([
@@ -50,6 +53,14 @@ const router = createBrowserRouter([
             {
                 path: '/verses/:id',
                 element: <VerseEditPage />,
+            },
+            {
+                path: '/app/explore',
+                element: <ExplorePage />,
+            },
+            {
+                path: '/app/explore/:id',
+                element: <PWAPage />,
             },
         ],
     },

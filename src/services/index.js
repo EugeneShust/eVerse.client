@@ -10,3 +10,4 @@ export {
     deleteVerseItem,
 } from './verse';
 
+export { getApps } from './app';

@@ -43,3 +43,40 @@ export type EventFormProps = BaseFormProps<EventDto> & {
     locations: LocationDto[];
     presenters: PresenterDto[];
 };
+
+export interface AppPreviewProps {
+    id: string;
+    name: string;
+    logo: string;
+    start: string;
+    end: string;
+    isFavorite: boolean;
+    onToggleFavorite: (id: string) => void;
+}
+
+export interface EventContentProps {
+    id: string;
+    name: string;
+    start: string;
+    end: string;
+    location: string;
+    isFavorite: boolean;
+    onClick: () => void;
+    onToggleFavorite: (id: string) => void;
+}
+
+export interface EventDetailsProps {
+    event: {
+        id: string;
+        name: string;
+        start: string;
+        end: string;
+        locationId: string;
+        categoryId: string;
+        presenterIds: string[];
+        description?: string;
+    };
+    favorites: string[];
+    onBack: () => void;
+    onToggleFavorite: (id: string) => void;
+}
