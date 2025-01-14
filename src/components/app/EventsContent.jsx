@@ -21,9 +21,12 @@ export const EventsContent = ({
         return acc;
     }, {});
 
-    const handleFavoriteClick = (id) => {
-        console.log(id);
-        onToggleFavorite(id);
+    const handleFavoriteClick = async (id) => {
+        try {
+            await onToggleFavorite(id);
+        } catch (error) {
+            console.error('EventsContent.Failed to toggle favorite:', error);
+        }
     };
 
     const days = Object.entries(groupedByDay);
@@ -52,11 +55,14 @@ export const EventsContent = ({
                         className="tab-content p-4 hidden"
                     >
                         <h2 className="text-lg font-bold mb-2">
-                            {new Date(dayEvents[0].start).toLocaleDateString('en-US', {
-                                weekday: 'long',
-                                day: 'numeric',
-                                month: 'short',
-                            })}
+                            {new Date(dayEvents[0].start).toLocaleDateString(
+                                'en-US',
+                                {
+                                    weekday: 'long',
+                                    day: 'numeric',
+                                    month: 'short',
+                                },
+                            )}
                         </h2>
                         <div className="space-y-2">
                             {dayEvents.map((event) => (
@@ -65,7 +71,9 @@ export const EventsContent = ({
                                     {...event}
                                     isFavorite={favorites.includes(event.id)}
                                     onClick={() => onEventClick(event)}
-                                    onToggleFavorite={handleFavoriteClick}
+                                    onToggleFavorite={() =>
+                                        handleFavoriteClick(event.id)
+                                    }
                                 />
                             ))}
                         </div>

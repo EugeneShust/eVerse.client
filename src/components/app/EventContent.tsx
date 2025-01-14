@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EventContentProps } from '../../types';
 import { useProfile } from '../../hooks';
+import { FavoriteButton } from '../../components';
 
 export const EventContent: React.FC<EventContentProps> = ({
     id,
@@ -12,12 +13,12 @@ export const EventContent: React.FC<EventContentProps> = ({
     onClick,
     onToggleFavorite,
 }) => {
-    console.log(isFavorite);
-
-    const handleFavoriteClick = async (e: React.MouseEvent) => {
-        e.preventDefault();
-        console.log(id);
-        onToggleFavorite(id);
+    const handleFavoriteClick = async (id) => {
+        try {
+            await onToggleFavorite(id);
+        } catch (error) {
+            console.error('Failed to toggle favorite:', error);
+        }
     };
 
     return (
@@ -35,13 +36,11 @@ export const EventContent: React.FC<EventContentProps> = ({
             <p className="text-sm text-gray-500">
                 Location: {location || 'Unknown'}
             </p>
-
-            <button
-                onClick={handleFavoriteClick}
-                className={`text-xl ${true ? 'text-yellow-400' : 'text-gray-400'}`}
-            >
-                {isFavorite ? '★' : '☆'}
-            </button>
+            <FavoriteButton
+                id={id}
+                isFavorite={isFavorite}
+                favoriteHandler={handleFavoriteClick}
+            />
         </div>
     );
 };

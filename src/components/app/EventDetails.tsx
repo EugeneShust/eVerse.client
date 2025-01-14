@@ -38,10 +38,13 @@ export const EventDetails: React.FC<EventDetailsProps> = ({
         }
     }, [verse, event]);
 
-    const handleFavoriteClick = (e: React.MouseEvent) => {
-        e.stopPropagation();
+    const handleFavoriteClick = async (id) => {
         //favorites
-        onToggleFavorite(event.id);
+        try {
+            await onToggleFavorite(event.id);
+        } catch (error) {
+            console.error('EventDetails.Failed to toggle favorite:', error);
+        }
     };
 
     return (
@@ -59,7 +62,10 @@ export const EventDetails: React.FC<EventDetailsProps> = ({
                     </h1>
                     <button
                         className={`text-yellow-500 ${favorites ? 'font-bold' : ''}`}
-                        onClick={handleFavoriteClick}
+                        onClick={async (e) => {
+                            e.stopPropagation();
+                            await handleFavoriteClick(event.id);
+                        }}
                     >
                         {favorites ? '★' : '☆'}
                     </button>

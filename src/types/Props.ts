@@ -51,7 +51,7 @@ export interface AppPreviewProps {
     start: string;
     end: string;
     isFavorite: boolean;
-    onToggleFavorite: (id: string) => void;
+    onToggleFavorite: (id: string) =>  Promise<void>;
 }
 
 export interface EventContentProps {
@@ -62,7 +62,7 @@ export interface EventContentProps {
     location: string;
     isFavorite: boolean;
     onClick: () => void;
-    onToggleFavorite: (id: string) => void;
+    onToggleFavorite: (id: string) => Promise<void>;
 }
 
 export interface EventDetailsProps {
@@ -78,5 +78,5 @@ export interface EventDetailsProps {
     };
     favorites: string[];
     onBack: () => void;
-    onToggleFavorite: (id: string) => void;
+    onToggleFavorite: (id: string) => Promise<void>;
 }

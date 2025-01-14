@@ -131,7 +131,8 @@ export function PWAPage() {
                             event={selectedEvent}
                             favorites={profile.favorites
                                 .filter((favorite) => favorite.id === verse.id)
-                                .flatMap((favorite) => favorite.events).includes(selectedEvent.id)}
+                                .flatMap((favorite) => favorite.events)
+                                .includes(selectedEvent.id)}
                             onBack={() => {
                                 if (selectedCategory) {
                                     setSelectedEvent(null);

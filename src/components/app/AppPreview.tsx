@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppPreviewProps } from '../../types';
-import { useProfile } from '../../hooks';
+import { FavoriteButton } from '../../components';
 
 export const AppPreview: React.FC<AppPreviewProps> = ({
     id,
@@ -19,9 +19,12 @@ export const AppPreview: React.FC<AppPreviewProps> = ({
         navigate(`/app/explore/${id}`);
     };
 
-    const handleFavoriteClick = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        onToggleFavorite(id);
+    const handleFavoriteClick = async (id) => {
+        try {
+            await onToggleFavorite(id);
+        } catch (error) {
+            console.error('AppPreviewProps.Failed to toggle favorite:', error);
+        }
     };
 
     return (
@@ -43,13 +46,11 @@ export const AppPreview: React.FC<AppPreviewProps> = ({
                     </p>
                 </div>
             </div>
-
-            <button
-                onClick={handleFavoriteClick}
-                className={`text-xl ${isFavorite ? 'text-yellow-400' : 'text-gray-400'}`}
-            >
-                {isFavorite ? '★' : '☆'}
-            </button>
+            <FavoriteButton
+                id={id}
+                isFavorite={isFavorite}
+                favoriteHandler={handleFavoriteClick}
+            />
         </div>
     );
 };
