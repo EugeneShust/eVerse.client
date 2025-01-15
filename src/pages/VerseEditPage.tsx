@@ -20,9 +20,11 @@ import {
 } from '../services';
 
 import { VerseCreateEditDto, VerseDto } from '../types';
+import { useVerse } from '../hooks';
 
 export function VerseEditPage() {
-    const [verse, setVerse] = useState<VerseDto | null>(null);
+    const { verse, updateVerseState } = useVerse();
+
     const [activeItem, setActiveItem] = useState('verse');
     const [editingItem, setEditingItem] = useState<{
         type: string;
@@ -31,18 +33,13 @@ export function VerseEditPage() {
         type: '',
         item: null,
     });
-    const [isFormVisible, setIsFormVisible] = useState(false);
 
     const { id } = useParams();
 
     useEffect(() => {
         const getVerses = async () => {
-            const verse = await getVerse(id);
-            setVerse(verse);
-
-            console.log(verse);
-
-            setVerse(verse);
+            const data = await getVerse(id);
+            updateVerseState(data);
         };
 
         getVerses();
@@ -62,7 +59,7 @@ export function VerseEditPage() {
 
         await deleteVerseItem(verse.id, type, itemId);
 
-        setVerse({
+        updateVerseState({
             ...verse,
             [type]: verse[type].filter((item: any) => item.id !== itemId),
         });
@@ -99,22 +96,13 @@ export function VerseEditPage() {
                 console.log('handleItemFormSubmit.verse', verse);
                 await updateVerseItem(verse.id, type, item);
 
-                setVerse((prevVerse): VerseDto | null => {
-                    if (!prevVerse) return null;
+                const updatedItems = verse[type].map((existingItem: any) =>
+                    existingItem.id === item.id ? item : existingItem,
+                );
 
-                    const currentItems = Array.isArray(prevVerse[type])
-                        ? prevVerse[type]
-                        : [];
-                    if (!Array.isArray(currentItems)) {
-                        throw new Error(`${type} is not an array`);
-                    }
-
-                    return {
-                        ...prevVerse,
-                        [type]: currentItems.map((existingItem: any) =>
-                            existingItem.id === item.id ? item : existingItem,
-                        ),
-                    };
+                updateVerseState({
+                    ...verse,
+                    [type]: updatedItems,
                 });
 
                 console.log('handleItemFormSubmit.NewVerse', verse);
@@ -122,26 +110,15 @@ export function VerseEditPage() {
                 const newItemId = await createVerseItem(verse.id, type, item);
                 item.id = newItemId;
 
-                setVerse((prevVerse): VerseDto | null => {
-                    if (!prevVerse) return null;
+                const updatedItems = [...verse[type], item];
 
-                    const currentItems = Array.isArray(prevVerse[type])
-                        ? prevVerse[type]
-                        : [];
-                    if (!Array.isArray(currentItems)) {
-                        throw new Error(`${type} is not an array`);
-                    }
-
-                    return {
-                        ...prevVerse,
-                        [type]: [...currentItems, item],
-                    };
+                updateVerseState({
+                    ...verse,
+                    [type]: updatedItems,
                 });
             }
 
             setEditingItem({ type: '', item: null });
-            //setIsFormVisible(false);
-
             closeDialog();
         } catch (error) {
             console.error(

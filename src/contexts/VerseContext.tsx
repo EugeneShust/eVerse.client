@@ -3,7 +3,7 @@ import { VerseDto } from '../types';
 
 export interface VerseContextValue {
     verse: VerseDto | null;
-    updateVerse: (verse: VerseDto) => void;
+    updateVerseState: (verse: VerseDto) => void;
     cleanUp: () => void;
 }
 
@@ -14,9 +14,15 @@ export const VerseContext = createContext<VerseContextValue | undefined>(
 export const VerseProvider = ({ children }) => {
     const [verse, setVerse] = useState<VerseDto | null>(null);
 
-    const updateVerse = (verse: VerseDto) => {
-        setVerse(verse);
-        console.log('Verse updated:', verse);
+    const updateVerseState = (verse: VerseDto) => {
+        const sortedEvents = [...verse.events].sort(
+            (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime(),
+        );
+        setVerse({ ...verse, events: sortedEvents });
+        console.log('Verse updated with sorted events:', {
+            ...verse,
+            events: sortedEvents,
+        });
     };
 
     const cleanUp = () => {
@@ -25,7 +31,7 @@ export const VerseProvider = ({ children }) => {
     };
 
     return (
-        <VerseContext.Provider value={{ verse, updateVerse, cleanUp }}>
+        <VerseContext.Provider value={{ verse, updateVerseState, cleanUp }}>
             {children}
         </VerseContext.Provider>
     );

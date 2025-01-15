@@ -1,13 +1,19 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { formatDateForInput } from '../../utils';
+import { toLocalISOString  } from '../../utils';
 
 export const VerseEditForm = ({ onSubmit, data }) => {
     console.log('VerseEditForm:', data);
     const [name, setName] = useState(data.name);
     const [logo, setLogo] = useState(data.logo);
-    const [start, setStart] = useState(formatDateForInput(data.start));
-    const [end, setEnd] = useState(formatDateForInput(data.end));
+    const [start, setStart] = useState(
+        toLocalISOString(data.start || new Date().toISOString()),
+    );
+
+    const [end, setEnd] = useState(
+        toLocalISOString(data.start || new Date().toISOString()),
+    );
+
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -16,8 +22,8 @@ export const VerseEditForm = ({ onSubmit, data }) => {
         onSubmit({
             name: name,
             logo: logo,
-            start: new Date(start),
-            end: new Date(end),
+            start: new Date(start).toISOString(),
+            end: new Date(end).toISOString(),
         });
     };
 

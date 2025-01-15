@@ -4,8 +4,15 @@ import { useNavigate } from 'react-router-dom';
 export const VerseCreateForm = ({ onSubmit }) => {
     const [name, setName] = useState('');
     const [logo, setLogo] = useState('');
-    const [start, setStart] = useState('');
-    const [end, setEnd] = useState('');
+
+    const [start, setStart] = useState(
+        toLocalISOString(initialValues.start || new Date().toISOString()),
+    );
+
+    const [end, setEnd] = useState(
+        toLocalISOString(initialValues.end || new Date().toISOString()),
+    );
+
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -14,8 +21,8 @@ export const VerseCreateForm = ({ onSubmit }) => {
         onSubmit({
             name: name,
             logo: logo,
-            start: new Date(start),
-            end: new Date(end),
+            start: new Date(start).toISOString(),
+            end: new Date(end).toISOString(),
         });
     };
 

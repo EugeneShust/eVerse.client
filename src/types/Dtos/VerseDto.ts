@@ -4,8 +4,8 @@ export interface VerseDto {
     id: string;
     name: string;
     description: string;
-    start: Date;
-    end: Date;
+    start: string;
+    end: string;
     logo: string;
     map: string;
 

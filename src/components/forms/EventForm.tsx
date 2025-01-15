@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { EventFormProps } from '../../types';
+import { toLocalISOString } from '../../utils';
 
 export const EventForm: React.FC<EventFormProps> = ({
     initialValues = {},
@@ -22,8 +23,11 @@ export const EventForm: React.FC<EventFormProps> = ({
     const [selectedPresenterIds, setSelectedPresenterIds] = useState(
         initialValues.presenterIds || [],
     );
-    const [start, setStart] = useState(initialValues.start || '');
-    const [end, setEnd] = useState(initialValues.end || '');
+
+    const [start, setStart] = useState(
+        toLocalISOString(initialValues.start || (new Date()).toISOString()),
+    );
+    const [end, setEnd] = useState(toLocalISOString(initialValues.end || (new Date()).toISOString()));
 
     const togglePresenter = (presenterId: string) => {
         setSelectedPresenterIds((prevIds) =>
@@ -42,8 +46,8 @@ export const EventForm: React.FC<EventFormProps> = ({
             locationId,
             categoryId,
             presenterIds: selectedPresenterIds,
-            start,
-            end,
+            start: new Date(start).toISOString(),
+            end: new Date(end).toISOString(),
         });
     };
 

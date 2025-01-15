@@ -5,6 +5,7 @@ import {
     LocationDto,
     PresenterDto,
 } from '../../../types';
+import { formatDate } from '../../../utils';
 
 interface EnhancedEventItemProps extends EventItemProps {
     categories: CategoryDto[];
@@ -36,7 +37,7 @@ export const EventItem: React.FC<EnhancedEventItemProps> = (props) => {
         'Unknown Category';
     const presenterNames = presenterIds
         .map((id) => presenters.find((presenter) => presenter.id === id)?.name)
-        .filter(Boolean) 
+        .filter(Boolean)
         .join(', ');
 
     return (
@@ -55,11 +56,10 @@ export const EventItem: React.FC<EnhancedEventItemProps> = (props) => {
                         <strong>Presenters:</strong> {presenterNames || 'None'}
                     </p>
                     <p>
-                        <strong>Start:</strong>{' '}
-                        {new Date(start).toLocaleString()}
+                        <strong>Start:</strong> {formatDate(start)}
                     </p>
                     <p>
-                        <strong>End:</strong> {new Date(end).toLocaleString()}
+                        <strong>End:</strong> {formatDate(end)}
                     </p>
                 </div>
                 <div className="card-actions justify-end mt-4">
